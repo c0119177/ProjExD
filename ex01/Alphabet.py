@@ -35,6 +35,7 @@ def Question1(data, count):
                 break
             else:
                 print("不正解です。またチャレンジしてください。")
+                print("------------------------------------------")
                 count -= 1
                 continue
 def Question2(data, count):
@@ -45,6 +46,7 @@ def Question2(data, count):
                 print("すべて正解しました。")
         else:
             print("不正解です。またチャレンジしてください。")
+            print("------------------------------------------")
             count -= 1
             Question1(data, count)
             break
