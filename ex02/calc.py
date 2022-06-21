@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 import tkinter.messagebox as tkm
 
-from numpy import insert
 
 BUTTON = [
     ["%", "", "C", "←"],
@@ -39,17 +38,21 @@ class Calculater(object):
     def button_click(self, event):
         click = event.widget["text"]
         if click == "=":
-            if self.calc_entry in SYMBOL:
-                self.calc_entry = self.calc_entry[:-1]
-            res = "=" + str(eval(self.calc_entry.get()))
+            if self.calc_entry.get()[-1] in SYMBOL:
+                self.calc_entry.delete(len(self.calc_entry.get()) - 1, tk.END)
+            res = "= " + str(eval(self.calc_entry.get()))
             self.calc_entry.delete(0, tk.END)
             self.calc_entry.insert(tk.END, res)
         elif click == "C":
             self.calc_entry.delete(0, tk.END)
         elif click == "←":
-            self.calc_entry.delete(0 or len(tk.END), len(tk.END) + 1)
+            self.calc_entry.delete(len(self.calc_entry.get()) - 1, tk.END)
         elif click in SYMBOL:
-            self.calc_entry.insert(tk.END, click)
+            if self.calc_entry.get()[-1] in SYMBOL:
+                self.calc_entry.delete(len(self.calc_entry.get()) - 1, tk.END)
+                self.calc_entry.insert(tk.END, click)
+            else:
+                self.calc_entry.insert(tk.END, click)
         else:
             self.calc_entry.insert(tk.END, click)
 #        tkm.showinfo(click, click)
