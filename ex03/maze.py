@@ -17,7 +17,7 @@ def main_proc():
     if key == "Right" and maze_bg[my][mx+1] == 0: mx += 1
     cx, cy = mx * 100 + 50, my * 100 + 50
     canvas.coords("tori1", cx, cy)
-    maze.after(100, main_proc)
+    maze.after(75, main_proc)
 
 if __name__ == "__main__":
     maze = tk.Tk()
@@ -26,7 +26,10 @@ if __name__ == "__main__":
     canvas = tk.Canvas(maze, width = 1500, height = 900, bg = "black")
     canvas.pack()
 
-    tori1 = tk.PhotoImage(file = "../fig/0.png")
+    maze_bg = mm.make_maze(15, 9)
+    mm.show_maze(canvas, maze_bg)
+
+    tori1 = tk.PhotoImage(file = "../fig/9.png")
     mx, my = 1, 1
     cx, cy = mx * 100 + 50, my * 100 + 50
     canvas.create_image(cx, cy, image = tori1, tag = "tori1")
@@ -34,9 +37,6 @@ if __name__ == "__main__":
     key = ""
     maze.bind("<KeyPress>", key_Down)
     maze.bind("<KeyRelease>", key_Up)
-
-    maze_bg = mm.make_maze(15, 9)
-    mm.show_maze(canvas, maze_bg)
 
     main_proc()
 
