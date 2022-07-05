@@ -1,4 +1,3 @@
-from turtle import Screen
 import pygame as pg
 import sys
 import random
