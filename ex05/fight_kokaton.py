@@ -93,7 +93,7 @@ def main():
     global maxspeed
     #fpsのカウント開始
     clock = pg.time.Clock()
-    sc = Screen("逃げろ!こうかとん", (1600, 900), "../fig/pg_bg.jpg")
+    sc = Screen("負けるな！こうかとん", (1600, 900), "../fig/pg_bg.jpg")
     tori = Bird("../fig/6.png", 2.0, (900, 400))
     bomb = Bomb((255, 0, 0), 50, sc)
 
