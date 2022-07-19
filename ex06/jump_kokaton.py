@@ -3,7 +3,6 @@ import sys
 import random
 import numpy as np
 
-bg_x = 0
 #スクリーン用クラス
 class Screen:
     def __init__(self, title, wh: tuple, img):
@@ -11,12 +10,13 @@ class Screen:
         self.sfc = pg.display.set_mode(wh)
         self.rect = self.sfc.get_rect()
         self.bg_sfc = pg.image.load(img).convert()
+        self.bg_x = 0
 
     def blit(self):
-        global bg_x
-        self.sfc.blit(self.bg_sfc, [bg_x - self.rect.width, 0])
-        self.sfc.blit(self.bg_sfc, [bg_x, 0])
-        bg_x = (bg_x - 5) % self.rect.width
+        #背景を動かして描画する
+        self.sfc.blit(self.bg_sfc, [self.bg_x - self.rect.width, 0])
+        self.sfc.blit(self.bg_sfc, [self.bg_x, 0])
+        self.bg_x = (self.bg_x - 5) % self.rect.width
 
 #こうかとん用クラス
 class Bird:
@@ -36,7 +36,7 @@ class Bird:
             self.rect.y = 750
             if key[pg.K_SPACE]:
                 self.gy = -25
-
+        #重力の計算
         self.gy += 1
         if self.gy > 15:
             self.gy = 15
@@ -59,19 +59,17 @@ class Obstacle:
         screen.sfc.blit(self.sfc, self.rect)
 
     def update(self, screen: Screen):
-        global maxspeed
         self.rect.move_ip(self.vx, self.vy)
         self.blit(screen)
 
 
 def main():
-    global bg_x
     #fpsのカウント開始
     clock = pg.time.Clock()
     sc = Screen("飛べ！こうかとん", (1600, 900), "../fig/bg_sabaku.jpg")
     tori = Bird("../fig/2.png", 2.0, sc)
     obs = Obstacle("../fig/sabo_ver02.png", 4.0, 10, sc)
-    obs2 = Obstacle("../fig/sabo_ver02.png", 2.0, 12, sc)  
+    obs2 = Obstacle("../fig/sabo_ver02.png", 2.0, 12, sc)
 
     #描画
     while True:
@@ -91,6 +89,7 @@ def main():
         if tori.rect.colliderect(obs2.rect):
             return
 
+        #障害物が画面外に出たときに再配置する
         if obs.rect.x <  -1 * random.randint(obs.rect.width, obs.rect.width * 5):
             obs.rect.x = sc.rect.width + obs.rect.width
         if obs2.rect.x <  -1 * random.randint(obs2.rect.width, obs2.rect.width * 5 ):
