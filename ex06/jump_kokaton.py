@@ -2,7 +2,8 @@ import pygame as pg
 import sys
 import random
 import numpy as np
-
+import time
+import math
 #スクリーン用クラス
 class Screen:
     def __init__(self, title, wh: tuple, img):
@@ -17,6 +18,9 @@ class Screen:
         self.sfc.blit(self.bg_sfc, [self.bg_x - self.rect.width, 0])
         self.sfc.blit(self.bg_sfc, [self.bg_x, 0])
         self.bg_x = (self.bg_x - 5) % self.rect.width
+
+    def text(self,text):
+        self.sfc.blit(text,[10,5])
 
 #こうかとん用クラス
 class Bird:
@@ -70,7 +74,8 @@ def main():
     tori = Bird("../fig/2.png", 2.0, sc)
     obs = Obstacle("../fig/sabo_ver02.png", 4.0, 10, sc)
     obs2 = Obstacle("../fig/sabo_ver02.png", 2.0, 12, sc)
-
+    start = time.time()
+    font = pg.font.Font(None,100)
     #描画
     while True:
         
@@ -94,6 +99,16 @@ def main():
             obs.rect.x = sc.rect.width + obs.rect.width
         if obs2.rect.x <  -1 * random.randint(obs2.rect.width, obs2.rect.width * 5 ):
             obs2.rect.x = sc.rect.width + obs2.rect.width
+
+
+        end = end = time.time()
+        dif = end - start 
+        dif = math.floor(dif)
+        text = font.render(str(dif),True,(64,255,63))
+        sc.text(text)
+
+
+
         pg.display.update()
         clock.tick(120)
 
