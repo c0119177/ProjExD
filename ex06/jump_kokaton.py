@@ -20,9 +20,15 @@ class Screen:
 
 
     def game_over_screen(self):
-        font = pg.font.Font(None, 120)
-        txt = font.render("GameOver", True, (0, 0, 0))
-        self.sfc.blit(txt, (600, 400))
+        font = pg.font.Font(None, 150)
+        txt = font.render("GameOver", True, (255, 0, 0))
+        self.sfc.blit(txt, (540, 350))
+        font = pg.font.Font(None, 40)
+        txt = font.render("Press R KEY TO RESTART", True, (0, 0, 0))
+        self.sfc.blit(txt, (640, 650))
+        font = pg.font.Font(None, 40)
+        txt = font.render("Press Esc KEY TO CLOSE", True, (0, 0, 0))
+        self.sfc.blit(txt, (640, 700))
         pg.display.update()
 
 
