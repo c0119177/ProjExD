@@ -16,6 +16,7 @@
 - ゲームオーバー画面表示(関数game_over_screen()): C0A21022
 - リスタート機能(関数Quit()): C0A21060
 - 障害物等の画像素材作成: C0A21006
+- groupREADMEを書いた人: C0A21022
 ### 参考サイト
 - https://goodlucknetlife.com/pygame-shooting-background/
 - https://pythonmemo.com/pygame/pygame004
