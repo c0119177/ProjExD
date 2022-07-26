@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 import random
-import numpy as np
+#import numpy as np
 
 #スクリーン用クラス
 class Screen:
@@ -17,6 +17,14 @@ class Screen:
         self.sfc.blit(self.bg_sfc, [self.bg_x - self.rect.width, 0])
         self.sfc.blit(self.bg_sfc, [self.bg_x, 0])
         self.bg_x = (self.bg_x - 5) % self.rect.width
+
+
+    def game_over_screen(self):
+        font = pg.font.Font(None, 120)
+        txt = font.render("GameOver", True, (0, 0, 0))
+        self.sfc.blit(txt, (600, 400))
+        pg.display.update()
+
 
 #こうかとん用クラス
 class Bird:
@@ -85,9 +93,9 @@ def main():
         obs2.update(sc)
 
         if tori.rect.colliderect(obs.rect):
-            return
+            sc.game_over_screen()
         if tori.rect.colliderect(obs2.rect):
-            return
+            sc.game_over_screen()
 
         #障害物が画面外に出たときに再配置する
         if obs.rect.x <  -1 * random.randint(obs.rect.width, obs.rect.width * 5):
